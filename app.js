@@ -70,3 +70,51 @@ const appId = "574aecf7";
 const appKey = "c77e22da2dc35c9a99d62c108cb86e56";
 
 const recipeUrl = "https://api.edamam.com/api/recipes/v2?type=public&q=";
+
+const searchInput = document.querySelector(".search-input");
+const searchResults = document.querySelector(".search-results");
+const form = document.querySelector("form");
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const searchQuery = searchInput.value;
+  fetchRecipes(searchQuery);
+});
+
+async function fetchRecipes(heathersBoobies) {
+  const response = await fetch(
+    `${recipeUrl}${heathersBoobies}&app_id=${appId}&app_key=${appKey}`
+  );
+  const responseData = await response.json();
+  displayRecipes(responseData.hits);
+}
+
+function displayRecipes(recipeResults) {
+  let recipeEl = "";
+
+  recipeResults.forEach((boobies) => {
+    recipeEl += `
+    <div class="item">
+            <img src="${boobies.recipe.image}" />
+            <div class="content-wrapper">
+              <h2 class="recipe-title">${boobies.recipe.label}</h2>
+              <a href="${
+                boobies.recipe.url
+              }" target="_blank" class="view-recipe">View Recipe</a>
+            </div>
+            <div class="recipe-desc">
+              <p class="item-data">Calories: ${boobies.recipe.calories.toFixed(
+                1
+              )}</p>
+              <p class="item-data">Diet Label: ${boobies.recipe.dietLabels}</p>
+              <p class="item-data">Health Label: ${
+                boobies.recipe.healthLabels
+              }</p>
+              <p class="item-data">Source: ${boobies.recipe.source}</p>
+            </div>
+      </div>
+    `;
+
+    searchResults.innerHTML = recipeEl;
+  });
+}
