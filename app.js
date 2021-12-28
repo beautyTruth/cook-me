@@ -58,6 +58,15 @@
 my code below
 */
 
-// https://www.edamam.com/
+// https://api.edamam.com/search
 // application ID 574aecf7
 // application keys c77e22da2dc35c9a99d62c108cb86e56
+
+// https://api.edamam.com/search?q=
+
+// https://api.edamam.com/api/recipes/v2?type=public&q=lime&app_id=574aecf7&app_key=c77e22da2dc35c9a99d62c108cb86e56
+
+const appId = "574aecf7";
+const appKey = "c77e22da2dc35c9a99d62c108cb86e56";
+
+const recipeUrl = "https://api.edamam.com/api/recipes/v2?type=public&q=";
